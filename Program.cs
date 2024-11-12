@@ -93,7 +93,6 @@ string GerarTokenJWt(Administrador administrador){
         new Claim("Email", administrador.Email),
         new Claim("Perfil", administrador.Perfil),
         new Claim(ClaimTypes.Role, administrador.Perfil)
-
     };
 
     var token = new JwtSecurityToken(
@@ -273,6 +272,7 @@ app.MapGet("/administradores/{id}", ([FromRoute] int id, IAdministradorServico a
         return Results.NoContent();
     })
     .RequireAuthorization()
+    .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm"})
     .WithTags("Veiculos");
 
 #endregion
